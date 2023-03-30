@@ -7,7 +7,10 @@ on:
         description: 'Environment to deploy'
         type: environment
         required: true
-
+env:
+  MAIL_USER: ${ vars.MAIL_USER }
+  MAIL_PASS: ${ secrets.MAIL_PASS }
+  
 jobs:
   build_jar:
     environment:
@@ -22,7 +25,7 @@ jobs:
           java-version: '17'
           distribution: 'adopt'
       - name: Build with Maven
-        run: mvn -DMAIL_USER=${ vars.MAIL_USER } -DMAIL_PASS=${ secrets.MAIL_PASS} clean install
+        run: mvn -DMAIL_USER=MAIL_USER -DMAIL_PASS=MAIL_PASS clean install
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
