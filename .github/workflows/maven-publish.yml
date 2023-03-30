@@ -8,8 +8,8 @@ on:
         type: environment
         required: true
 env:
-  MAIL_USER: ${ vars.MAIL_USER }
-  MAIL_PASS: ${ secrets.MAIL_PASS }
+  MAIL_USER: ${{ vars.MAIL_USER }}
+  MAIL_PASS: ${{ secrets.MAIL_PASS }}
   
 jobs:
   build_jar:
