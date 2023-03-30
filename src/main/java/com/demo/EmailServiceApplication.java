@@ -21,9 +21,9 @@ public class EmailServiceApplication implements CommandLineRunner {
     public void run(String... args) {
         Mail mail = new Mail();
         mail.setMailFrom("pankovisheev5@gmail.com");
-        mail.setMailTo(new String[]{"ipankov@luxoft.com", "pankovisheev5@gmail.com"});
-        mail.setMailSubject("Spring Boot - Email demo");
-        mail.setMailContent("Just testing");
+        mail.setMailTo(new String[]{"bogdan.parashchak@gmail.com", "pankovisheev5@gmail.com", "e.podzirey@gmail.com", "nastyabondarenko870@gmail.com"});
+        mail.setMailSubject("Github actions demo");
+        mail.setMailContent("Thank you for your attention!");
         mailService.sendEmail(mail);
     }
 
