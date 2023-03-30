@@ -29,7 +29,7 @@ jobs:
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
-          name: demo.jar
+          name: EmailService-0.0.1-SNAPSHOT.jar
           path: ${{ github.workspace }}/target/EmailService-0.0.1-SNAPSHOT.jar
   deploy_dev:
     name: Deploy to dev environment
@@ -42,7 +42,7 @@ jobs:
       - name: Download artifact from build job
         uses: actions/download-artifact@v3
         with:
-          name: demo.jar
+          name: EmailService-0.0.1-SNAPSHOT.jar
 
       - name: Install SSH Key
         uses: shimataro/ssh-key-action@v2
@@ -54,7 +54,7 @@ jobs:
         run: ssh-keyscan -p ${{ secrets.SSH_PORT}} -H ${{ secrets.SSH_HOST }}  >> ~/.ssh/known_hosts
 
       - name: Copy artifact to remote host
-        run: scp ./demo.jar ubuntu@3.77.20.61:/home/ubuntu
+        run: scp ./EmailService-0.0.1-SNAPSHOT.jar ubuntu@3.77.20.61:/home/ubuntu
 
       - name: Restart Deployed artifact
         uses: appleboy/ssh-action@master
@@ -64,4 +64,4 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            java -DMAIL_USER=MAIL_USER -DMAIL_PASS=MAIL_PASS -jar ./demo.jar
+            java -DMAIL_USER=MAIL_USER -DMAIL_PASS=MAIL_PASS -jar ./EmailService-0.0.1-SNAPSHOT.jar
