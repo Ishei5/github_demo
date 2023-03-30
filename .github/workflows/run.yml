@@ -60,4 +60,4 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            java -DMAIL_USER= ${{ env.MAIL_USER }} -DMAIL_PASS= ${{env.MAIL_PASS }} -jar ./EmailService-0.0.1-SNAPSHOT.jar
+            java -DMAIL_USER=${{ env.MAIL_USER }} -DMAIL_PASS=${{env.MAIL_PASS }} -jar ./EmailService-0.0.1-SNAPSHOT.jar
