@@ -24,32 +24,32 @@ jobs:
       - name: Build with Maven
         run: mvn -DMAIL_USER=${ vars.MAIL_USER } -DMAIL_PASS=${ secrets.MAIL_PASS} clean install
       - name: Upload artifact for deployment job
-          uses: actions/upload-artifact@v3
-          with:
-            name: demo.jar
-            path: ${{ github.workspace }}/target/EmailService-0.0.1-SNAPSHOT.jar
-  deploy_dev:
-    name: Deploy to dev environment
-    runs-on: ubuntu-latest
-    needs: build_jar
-    environment:
-      name: "Development"
-
-    steps:
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v3
+        uses: actions/upload-artifact@v3
         with:
-          name: QueryGenerator-1.0-SNAPSHOT.jar
-          path: ${{ github.workspace }}/target/QueryGenerator-1.0-SNAPSHOT.jar
+          name: demo.jar
+          path: ${{ github.workspace }}/target/EmailService-0.0.1-SNAPSHOT.jar
+  #deploy_dev:
+  #  name: Deploy to dev environment
+  #  runs-on: ubuntu-latest
+  #  needs: build_jar
+  #  environment:
+  #    name: "Production"
 
-      - name: Install SSH Key
-        uses: shimataro/ssh-key-action@v2
-        with:
-          key: ${{ secrets.SSH_KEY }}
-          known_hosts: unnecessary
-            -
-      - name: Adding Known Hosts
-        run: ssh-keyscan -p ${{ secrets.SSH_PORT}} -H ${{ secrets.SSH_HOST }}  >> ~/.ssh/known_hosts
+  #  steps:
+  #    - name: Download artifact from build job
+  #      uses: actions/download-artifact@v3
+  #      with:
+  #        name: QueryGenerator-1.0-SNAPSHOT.jar
+  #        path: ${{ github.workspace }}/target/EmailService-0.0.1-SNAPSHOT.jar
 
-      - name: Copy artifact to remote host
-        run: scp ./QueryGenerator-1.0-SNAPSHOT.jar ubuntu@3.77.20.61:/home/ubuntu
+  #    - name: Install SSH Key
+  #      uses: shimataro/ssh-key-action@v2
+  #      with:
+  #        key: ${{ secrets.SSH_KEY }}
+  #        known_hosts: unnecessary
+            
+  #    - name: Adding Known Hosts
+  #      run: ssh-keyscan -p ${{ secrets.SSH_PORT}} -H ${{ secrets.SSH_HOST }}  >> ~/.ssh/known_hosts
+
+  #    - name: Copy artifact to remote host
+  #      run: scp ./EmailService-0.0.1-SNAPSHOT.jar ubuntu@3.77.20.61:/home/ubuntu
